@@ -130,7 +130,7 @@ public class PlayerController : NetworkBehaviour {
 		return playerMod.animalMods[animalIndex].isFull();
 	}
 
-	void killAnimal(int index){
+	public void killAnimal(int index){
 		playerMod.removeAnimal(index);
 		playerView.removeAnimal(index);
 	}
@@ -439,40 +439,31 @@ public class PlayerController : NetworkBehaviour {
 	}
 
 	[Command]
-	public void CmdAnimalAuto(int src,int des,ConstEnums.PlayerId playerId){			
-		RpcMoveAnimalAuto(src,des,playerId);
+	public void CmdAnimalAttackSuccess(int attackerIdx,int defenderIdx,ConstEnums.PlayerId attackerPlayerId){			
+		RpcAnimalAttackSuccess(attackerIdx,defenderIdx,attackerPlayerId);
 
 	}
 
 	[ClientRpc]
-	public void RpcMoveAnimalAuto(int source, int des,ConstEnums.PlayerId playerId){
-		if(MatchController.Instance.localPlayer.getPlayerId() == playerId){
-			Vector3 pos =  MatchController.Instance.remotePlayer.getAnimalPosition (des);
-			Debug.Log ("id :  " + getPlayerId());
-			playerView.animalAttack(source,des,pos,playerId);
-
-			//给该动物吃食物，并获取该动物是否吃饱
-			bool isFull = playerMod.addFoodToAnimal(source,2);
-			if(isFull){
-				//如果吃饱，变成吃饱的颜色
-				playerView.setAnimalFull(source);
-			}
+	public void RpcAnimalAttackSuccess(int attackerIdx, int defenderIdx,ConstEnums.PlayerId attackerPlayerId){
+		if(getPlayerId() == attackerPlayerId){
+			Vector3 pos =  MatchController.Instance.remotePlayer.getAnimalPosition (defenderIdx);
+			Debug.Log ("attack playerid :  " + getPlayerId());
+			dealAnimalAttack(attackerIdx,defenderIdx,pos);
 		}else{
-			Vector3 pos = MatchController.Instance.localPlayer.getAnimalPosition (des);
-			Debug.Log ("id :  " + getPlayerId());
+			Vector3 pos = getAnimalPosition (defenderIdx);
+			Debug.Log ("attack playerid :  " + getPlayerId());
 			PlayerController remotePlayer = MatchController.Instance.remotePlayer;
-			remotePlayer.playerView.animalAttack(source,des,pos,playerId);
-			//给该动物吃食物，并获取该动物是否吃饱
-			bool isFull = playerMod.addFoodToAnimal(source,2);
-			if(isFull){
-				//如果吃饱，变成吃饱的颜色
-				playerView.setAnimalFull(source);
-			}
+			remotePlayer.dealAnimalAttack(attackerIdx,defenderIdx,pos);
 		}
-
-
-
 	}
+
+	void dealAnimalAttack(int attackerIdx, int defenderIdx,Vector3 defenderPos){
+		//给该动物吃食物，并获取该动物是否吃饱
+		bool isFull = playerMod.addFoodToAnimal(attackerIdx,2);
+		playerView.animalAttackAnimation(attackerIdx,defenderIdx,defenderPos,isFull);
+	}
+
 
 
 	[Command]

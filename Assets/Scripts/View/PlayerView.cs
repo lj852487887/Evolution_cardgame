@@ -8,7 +8,7 @@ using DG.Tweening;
 
 public class PlayerView : MonoBehaviour {
 
-	public static string OnAnimalEaten = "PlayerView.OnAnimalEaten";
+	public static string OnAnimalAttackComplete = "PlayerView.OnAnimalEaten";
 	public GameObject cardPrefab;
 	public GameObject animalPrefab;
 	public GameObject animalArea;
@@ -127,14 +127,18 @@ public class PlayerView : MonoBehaviour {
 		animals[animalIdx].GetComponent<AnimalView>().addSkillObj(skill);
 	}
 
-	public void animalAttack(int attackerIdx,int defenderIdx, Vector3 defenderPos,ConstEnums.PlayerId playerId){
+	public void animalAttackAnimation(int attackerIdx,int defenderIdx, Vector3 defenderPos,bool isFull){
 		Vector3 originPos = animals[attackerIdx].transform.position;
-		animals[attackerIdx].transform.DOJump(defenderPos,5,1,0.5f).OnComplete(()=>jumpBack(attackerIdx,defenderIdx,originPos,playerId));
+		animals[attackerIdx].transform.DOJump(defenderPos,5,1,0.5f).OnComplete(()=>jumpBack(attackerIdx,defenderIdx,originPos,isFull));
 	}
 
-	void jumpBack(int attackerIdx,int defenderIdx,Vector3 originPos,ConstEnums.PlayerId playerId){
+	void jumpBack(int attackerIdx,int defenderIdx,Vector3 originPos,bool isFull){
 		animals[attackerIdx].transform.DOJump(originPos,5,1,0.5f);
-		this.PostNotification (OnAnimalEaten,defenderIdx);
+		if(isFull){
+			//如果吃饱，变成吃饱的颜色
+			setAnimalFull(attackerIdx);
+		}
+		this.PostNotification (OnAnimalAttackComplete,defenderIdx);
 	}
 
 

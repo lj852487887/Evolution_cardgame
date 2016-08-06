@@ -53,7 +53,7 @@ public class GameController : BaseSingletonController<GameController> {
 		this.AddObserver (OnFinishInitRemotePlayerCard, PlayerController.FinishInitRemotePlayerCard);
         this.AddObserver(OnInitFood, PlayerController.InitFood);
         this.AddObserver(OnClearFood, PlayerController.ClearFood);
-		this.AddObserver (OnAnimalEaten, PlayerView.OnAnimalEaten);
+		this.AddObserver (OnAnimalAttackComplete, PlayerView.OnAnimalAttackComplete);
         //this.AddObserver(OnDidBeginGame, GameModel.DidBeginGameNotification);
         //this.AddObserver(OnDidPlaceCard, GameModel.DidPutCardNotification);
         //this.AddObserver(OnDidChangeControl, GameModel.DidChangeControlNotification);
@@ -73,7 +73,7 @@ public class GameController : BaseSingletonController<GameController> {
 		this.RemoveObserver (OnFinishInitRemotePlayerCard, PlayerController.FinishInitRemotePlayerCard);
         this.RemoveObserver (OnInitFood, PlayerController.InitFood);
         this.RemoveObserver(OnClearFood, PlayerController.ClearFood);
-		this.RemoveObserver (OnAnimalEaten, PlayerView.OnAnimalEaten);
+		this.RemoveObserver (OnAnimalAttackComplete, PlayerView.OnAnimalAttackComplete);
         //this.RemoveObserver(OnDidBeginGame, GameModel.DidBeginGameNotification);
         //this.RemoveObserver(OnDidPlaceCard, GameModel.DidPlaceCardNotification);
         //this.RemoveObserver(OnDidChangeControl, GameModel.DidChangeControlNotification);
@@ -264,9 +264,9 @@ public class GameController : BaseSingletonController<GameController> {
 			bool result = localPlayer.checkAnimalAttck(curActingAnimalIndex,enemyAnimalIndex);
 
 			if (result) {
-				localPlayer.CmdAnimalAuto (curActingAnimalIndex, enemyAnimalIndex, localPlayer.getPlayerId ());
 				curActingAnimalIndex = -1;
 				gameView.actionBtnClicked = false;
+				localPlayer.CmdAnimalAttackSuccess (curActingAnimalIndex, enemyAnimalIndex, localPlayer.getPlayerId ());
 			} else {
 				localPlayer.CmdEndTurn ();
 			}
@@ -275,15 +275,13 @@ public class GameController : BaseSingletonController<GameController> {
 	}
 
 
-	void OnAnimalEaten(object sender, object args){
+	void OnAnimalAttackComplete(object sender, object args){
 		Debug.Log("animal eaten "+ (int)args);
-		int index = (int)args;
+		int deadAnimalIdx = (int)args;
 		if(_currentState is HuntActiveGameState){
-			MatchController.Instance.remotePlayer.playerView.removeAnimal (index);
-			MatchController.Instance.remotePlayer.playerMod.removeAnimal (index);
+			MatchController.Instance.remotePlayer.killAnimal(deadAnimalIdx);
 		}else{
-			MatchController.Instance.localPlayer.playerView.removeAnimal (index);
-			MatchController.Instance.localPlayer.playerMod.removeAnimal (index);
+			MatchController.Instance.localPlayer.killAnimal(deadAnimalIdx);
 		}
 		endTurn ();
 
@@ -372,9 +370,7 @@ public class GameController : BaseSingletonController<GameController> {
 
 	void OnRequestPutAnimal (object sender, object args)
 	{
-		gameMod.ChangeTurn();
-		gameView.setPassBtnActive(false);
-		CheckState();
+		endTurn();
 	}
 
 	void OnRequestPassEvolute (object sender, object args)
@@ -386,9 +382,7 @@ public class GameController : BaseSingletonController<GameController> {
 
 	void OnRequestTakeAction (object sender, object args)
 	{
-		gameMod.ChangeTurn();
-		gameView.setPassBtnActive(false);
-		CheckState();
+		endTurn();
 	}
 
 
