@@ -262,14 +262,15 @@ public class GameController : BaseSingletonController<GameController> {
 		if (curActingAnimalIndex >= 0 && gameView.actionBtnClicked){
 			PlayerController localPlayer = MatchController.Instance.localPlayer;
 			bool result = localPlayer.checkAnimalAttck(curActingAnimalIndex,enemyAnimalIndex);
-
 			if (result) {
-				curActingAnimalIndex = -1;
-				gameView.actionBtnClicked = false;
+				Debug.Log("attack success");
 				localPlayer.CmdAnimalAttackSuccess (curActingAnimalIndex, enemyAnimalIndex, localPlayer.getPlayerId ());
 			} else {
+				Debug.Log("attack fail");
 				localPlayer.CmdEndTurn ();
 			}
+			curActingAnimalIndex = -1;
+			gameView.actionBtnClicked = false;
 
 		}
 	}

@@ -460,6 +460,8 @@ public class PlayerController : NetworkBehaviour {
 
 	void dealAnimalAttack(int attackerIdx, int defenderIdx,Vector3 defenderPos){
 		//给该动物吃食物，并获取该动物是否吃饱
+		Debug.Log( getPlayerId() + "'s cur animal count:"+playerMod.animalMods.Count);
+		Debug.Log(getPlayerId() + "'s animal :"+attackerIdx+ "eat enemy's animal" +  defenderIdx);
 		bool isFull = playerMod.addFoodToAnimal(attackerIdx,2);
 		playerView.animalAttackAnimation(attackerIdx,defenderIdx,defenderPos,isFull);
 	}

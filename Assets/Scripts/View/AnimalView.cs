@@ -103,6 +103,7 @@ public class AnimalView: BaseDraggtableView {
 			break;
 
 		};
+		text.text += skillType.ToString();
 	}
 
 	void setColor(Color color){

@@ -37,7 +37,6 @@ namespace Evolution{
 			Aquatic,
 			SharpEye,
 			FastRun,
-			Fly,
 			Wisdom,
 			Vampire,
 			Flee

@@ -54,6 +54,11 @@ public class Property: MonoBehaviour{
 	}
 
 	public bool Attack(Property defender){
+		Debug.Log("check attack: ");
+		Debug.Log("attacker skills:");
+		showProperty();
+		Debug.Log("defender skills:");
+		defender.showProperty();
 		bool result = false;
 		foreach (base_skill o in skills) {
 			result = o.Attack ();
@@ -64,6 +69,7 @@ public class Property: MonoBehaviour{
 		if (!result) {//不具备攻击条件
 			return false;
 		}
+		Debug.Log("can attack:"+result);
 		//具备攻击条件，开始攻击
 		if (defender.Defend (this,defender)) {//防御成功则攻击失败
 			result=false;
@@ -76,6 +82,7 @@ public class Property: MonoBehaviour{
 		bool result = false;//默认防御失败
 		bool hasWisdom=attacker.getSkill(ConstEnums.Skills.Wisdom);
 		foreach (base_skill o in skills) {//各个技能依次开始防御
+			Debug.Log("check defend skill:"+o.getName());
 			result = o.Defend (attacker,defender);
 			if (result) {//若其中有一项技能防御成功过则通过
 				if(hasWisdom){//若有智慧，本次防御无视
