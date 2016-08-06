@@ -53,7 +53,7 @@ public class PlayerView : MonoBehaviour {
 	}
 
 	public void refreshCardsPosition(){
-        Debug.Log("refresh card count:"+ cards.Count);
+        //Debug.Log("refresh card count:"+ cards.Count);
 		if(cards.Count>0){
             Vector3 pos = new Vector3(cardArea.transform.position.x, cardArea.transform.position.y+1, cardArea.transform.position.z);
 			Vector3 areaSize = cardArea.GetComponent<Renderer>().bounds.size;

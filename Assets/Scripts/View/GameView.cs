@@ -91,10 +91,15 @@ public class GameView : MonoBehaviour,IPointerClickHandler {
 
 	public List<GameObject> removeCard(int num){
 		List<GameObject> cardObjList = new List<GameObject>();
+		Debug.Log("remove maincard object");
+		Debug.Log("maincards:"+mainCards.Count);
+		Debug.Log("num:"+num);
 		if(mainCards.Count>=num){
 			for (int i = 0; i < num ; i++)
 			{
-				int idx = mainCards.Count - 1 -i;
+				int idx = mainCards.Count - 1;
+				Debug.Log("maincards:"+mainCards.Count);
+				Debug.Log("idx:"+idx);
 				GameObject card = mainCards[idx];
 				mainCards.Remove(card);
 				cardObjList.Add(card);

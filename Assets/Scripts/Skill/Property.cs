@@ -16,7 +16,7 @@ public class Property: MonoBehaviour{
 	public bool getSkill(ConstEnums.Skills name)
 	{
 		foreach(base_skill skill in skills){
-			Debug.Log ("*******"+skill.getName ());
+			//Debug.Log ("*******"+skill.getName ());
 			if(skill.getName() == name){
 				Debug.Log (name+" exist!");
 				return true;
@@ -44,7 +44,7 @@ public class Property: MonoBehaviour{
 
 	public void showProperty(){
 		foreach (base_skill o in skills) {
-			Debug.Log (o.getName() + " ");
+			//Debug.Log (o.getName() + " ");
 		}
 	}
 
@@ -101,7 +101,7 @@ public class Property: MonoBehaviour{
 			return false;
 		}
 		showProperty ();
-		Debug.Log ("could attack???"+getSkill (ConstEnums.Skills.Predator));
+		//Debug.Log ("could attack???"+getSkill (ConstEnums.Skills.Predator));
 		return getSkill (ConstEnums.Skills.Predator);
 	}
 }

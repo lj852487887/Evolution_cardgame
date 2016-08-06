@@ -6,7 +6,7 @@ using Evolution;
 
 public class GameController : BaseSingletonController<GameController> {
 
-	public static int MAX_CARD_NUM = 30;
+	public static int MAX_CARD_NUM = 18;
 	public static int MAX_PREDATOR_CARD_NUM = 15;
 	public static int MAX_AQUATIC_CARD_NUM = 10;
 	public static int MAX_FAT_CARD_NUM = 5;
@@ -353,7 +353,7 @@ public class GameController : BaseSingletonController<GameController> {
 					float y = animal.GetComponent<SphereCollider> ().bounds.size.y;
 					float z = animal.GetComponent<SphereCollider> ().bounds.size.z/2;
 
-					Debug.LogWarning ("x:" + x + " y:" + y + " z:" + z);
+					//Debug.LogWarning ("x:" + x + " y:" + y + " z:" + z);
 					AnimalView animalView= animal.GetComponent<AnimalView>();
 					Vector3 animalPosition = animal.transform.position;
 					float left = animalPosition.x - x;
@@ -482,12 +482,12 @@ public class GameController : BaseSingletonController<GameController> {
 				Debug.LogWarning("check animal alive");
 				checkHuntState();
 				Debug.LogWarning("add next round cards");
-				addCards();
 				if(gameMod.control == MatchController.Instance.localPlayer.getPlayerId()){
 					ChangeState<EvoluteActiveGameState>();
 				}else{
 					ChangeState<EvolutePassiveGameState>();
 				}
+				addCards();
 			}else{
 				Debug.LogWarning("repeat hunt state");
 				gameMod.setState(ConstEnums.GameState.Hunt);

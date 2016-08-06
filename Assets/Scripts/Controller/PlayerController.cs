@@ -277,7 +277,7 @@ public class PlayerController : NetworkBehaviour {
 
 	public void initCards(ConstEnums.PlayerId playerId,List<CardModel> cards){
 		PlayerController player = MatchController.Instance.getPlayerById(playerId);
-		Debug.Log("init cards to "+ playerId);
+		Debug.Log("init "+ cards.Count+" cards to "+ playerId);
 		List<GameObject> cardObjList =  GameController.Instance.gameView.removeCard(cards.Count);
 
 		player.playerMod.addCards(cards);
@@ -518,7 +518,7 @@ public class PlayerController : NetworkBehaviour {
             float right = foodAreaCenter.x + foodAreaSize.x / 2;
             float top = foodAreaCenter.z + foodAreaSize.z / 2;
             float bottom = foodAreaCenter.z - foodAreaSize.z / 2;
-            Debug.Log("area:(" + top + "," + right + "," + bottom + "," + left + ")");
+            //Debug.Log("area:(" + top + "," + right + "," + bottom + "," + left + ")");
             Vector3 position = new Vector3(UnityEngine.Random.Range(left, right), 1.4f, UnityEngine.Random.Range(bottom, top));
             RpcShowFood(position);
             num--;

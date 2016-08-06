@@ -76,20 +76,20 @@ public class HuntActiveGameState : BaseGameState
 	}
 
 	void OnEnemyAnimalChoosen(object sender, object args){
-		Debug.Log("get enemy choose");
+		//Debug.Log("get enemy choose");
 		gameController.onEnemyAnimalChoosen((int)args);
 	}
 
     void OnAnimalDraged(object sender, object args)
     {
-        Debug.Log("animal draged!");
+        //Debug.Log("animal draged!");
         Vector3 pos = LocalPlayer.getAnimalPosition((int)args);
         LocalPlayer.CmdMoveAnimal((int)args, pos);
     }
 
     void OnAnimalDroped(object sender, object args)
     {
-        Debug.Log("animal droped!");
+        //Debug.Log("animal droped!");
         Vector3 pos = LocalPlayer.getAnimalPosition((int)args);
         LocalPlayer.CmdMoveAnimal((int)args, pos);
     }
