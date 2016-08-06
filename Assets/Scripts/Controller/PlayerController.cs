@@ -200,13 +200,13 @@ public class PlayerController : NetworkBehaviour {
     {
         int skillRange = ConstEnums.getSkillCount();
 		///////////////
-		skillRange = 5;
+		//skillRange = 3;
 		/////////////////
-        for (int i =0;i<GameModel.MAX_CARD_NUM;i++)
+		for (int i =0;i<GameController.MAX_CARD_NUM;i++)
         {
 			int randomType = UnityEngine.Random.Range(1, skillRange);
             Debug.Log("init main card " + (ConstEnums.Skills)randomType);
-			RpcInitMainCards(randomType,GameModel.MAX_CARD_NUM);
+			RpcInitMainCards(randomType,GameController.MAX_CARD_NUM);
         }
     }
 
@@ -214,7 +214,9 @@ public class PlayerController : NetworkBehaviour {
 	public void RpcInitMainCards(int cardType,int TotalNum)
     {
 		GameController.Instance.initCardToMainCard(cardType);
+		Debug.Log("rpc init cards"+ TotalNum);
 		if(GameController.Instance.getMainCardNum() == TotalNum){
+			Debug.LogWarning("main cards init complete: "+ TotalNum);
 			this.PostNotification(FinishInitMainCards);
 		}
     }
@@ -449,13 +451,13 @@ public class PlayerController : NetworkBehaviour {
 
 	[ClientRpc]
 	public void RpcAnimalAttackSuccess(int attackerIdx, int defenderIdx,ConstEnums.PlayerId attackerPlayerId){
-		if(getPlayerId() == attackerPlayerId){
+		if(MatchController.Instance.localPlayer.getPlayerId() == attackerPlayerId){
 			Vector3 pos =  MatchController.Instance.remotePlayer.getAnimalPosition (defenderIdx);
-			Debug.Log ("attack playerid :  " + getPlayerId());
-			dealAnimalAttack(attackerIdx,defenderIdx,pos);
+			Debug.Log ("local attack  playerid :  " + getPlayerId());
+			MatchController.Instance.localPlayer.dealAnimalAttack(attackerIdx,defenderIdx,pos);
 		}else{
-			Vector3 pos = getAnimalPosition (defenderIdx);
-			Debug.Log ("attack playerid :  " + getPlayerId());
+			Vector3 pos = MatchController.Instance.localPlayer.getAnimalPosition (defenderIdx);
+			Debug.Log ("remote attack playerid :  " + getPlayerId());
 			PlayerController remotePlayer = MatchController.Instance.remotePlayer;
 			remotePlayer.dealAnimalAttack(attackerIdx,defenderIdx,pos);
 		}

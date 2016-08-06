@@ -9,7 +9,7 @@ public class EvoluteActiveGameState : BaseGameState
 		turnTxt.text = "Your Turn!";
 		stateTxt.text = "Evolute Active State";
 		if(gameMod.mainCardMods.Count>0){
-			Debug.Log("cur remain food:"+gameMod.mainCardMods.Count.ToString());
+			Debug.Log("cur remain cards:"+gameMod.mainCardMods.Count.ToString());
 			foodTxt.text = gameMod.mainCardMods.Count.ToString();
 		}else{
 			foodTxt.text = "last round !";

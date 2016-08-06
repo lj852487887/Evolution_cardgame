@@ -35,8 +35,8 @@ public class AnimalModel:BaseModel{
 	public void getFat(){
 		fatNum++;
 	}//吸血
-	public void raiseNeed(){
-		neededFood++;
+	public void raiseNeed(int num=1){
+		neededFood+=num;
 	}
 
 	public bool eatFood(ConstEnums.Food food,int num =1) {

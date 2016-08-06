@@ -6,6 +6,10 @@ using Evolution;
 
 public class GameController : BaseSingletonController<GameController> {
 
+	public static int MAX_CARD_NUM = 30;
+	public static int MAX_PREDATOR_CARD_NUM = 15;
+	public static int MAX_AQUATIC_CARD_NUM = 10;
+	public static int MAX_FAT_CARD_NUM = 5;
 	const int INIT_CARD_NUM = 6;
 
 	public const string DidBeginGameNotification = "GameModel.DidBeginGameNotification";
@@ -17,6 +21,7 @@ public class GameController : BaseSingletonController<GameController> {
 
 	public GameModel gameMod;
 	public GameView gameView;
+	public Text cardNumTxt;
 
 	bool initEvolute;
 	bool isInitFood;
@@ -108,7 +113,7 @@ public class GameController : BaseSingletonController<GameController> {
     //初始化进化阶段，给每位玩家分配初始手牌
 	void InitEvoluteState(){
 		if(!initEvolute && MatchController.Instance.checkHostIsLocal()){
-			MatchController.Instance.hostPlayer.CmdInitMainCards();
+			MatchController.Instance.localPlayer.CmdInitMainCards();
 		}
 	}
 		
@@ -125,10 +130,10 @@ public class GameController : BaseSingletonController<GameController> {
 			//Debug.LogError(gameMod.mainCardMods.Count);
 			PlayerController hostPlayer = MatchController.Instance.hostPlayer;
 			PlayerController clientPlayer = MatchController.Instance.clientPlayer;
-			hostPlayer.tempCount = 30;
+			hostPlayer.tempCount = MAX_CARD_NUM;
 			hostPlayer.CmdAddCardToPlayer(hostPlayer.getPlayerId(), INIT_CARD_NUM);
 			//Debug.LogError(gameMod.mainCardMods.Count);
-			hostPlayer.tempCount = 24;
+			hostPlayer.tempCount = MAX_CARD_NUM - INIT_CARD_NUM;
 			hostPlayer.CmdAddCardToPlayer(clientPlayer.getPlayerId(),INIT_CARD_NUM);
 			//Debug.LogError(gameMod.mainCardMods.Count);
 		}
@@ -172,8 +177,13 @@ public class GameController : BaseSingletonController<GameController> {
 		Debug.LogWarning("on init main card " + skillType);
 		CardModel card = gameMod.initCards(skillType);
 		gameView.initCard(card);
+		refreshCaedNumTxt();
 	}
 
+
+	void refreshCaedNumTxt(){
+		cardNumTxt.text = gameMod.mainCardMods.Count.ToString();
+	}
 
     //结算猎食阶段
     void checkHuntState(){
@@ -203,17 +213,32 @@ public class GameController : BaseSingletonController<GameController> {
 		}
 		if(MatchController.Instance.checkHostIsLocal()){
 			//Debug.LogError(gameMod.mainCardMods.Count);
-
-			PlayerController hostPlayer = MatchController.Instance.hostPlayer;
-			PlayerController clientPlayer = MatchController.Instance.clientPlayer;
-			int hostAddNum = hostPlayer.getAddCardNum();
-			int clientAddNum = clientPlayer.getAddCardNum();
-			hostPlayer.tempCount = gameMod.mainCardMods.Count;
-			hostPlayer.CmdAddCardToPlayer(hostPlayer.getPlayerId(), hostAddNum);
-			//Debug.LogError(gameMod.mainCardMods.Count);
-			hostPlayer.tempCount = gameMod.mainCardMods.Count - hostAddNum;
-			hostPlayer.CmdAddCardToPlayer(clientPlayer.getPlayerId(),clientAddNum);
-			//Debug.LogError(gameMod.mainCardMods.Count);
+			if(gameMod.mainCardMods.Count>0){
+				PlayerController hostPlayer = MatchController.Instance.hostPlayer;
+				PlayerController clientPlayer = MatchController.Instance.clientPlayer;
+				int diff_host = gameMod.mainCardMods.Count - hostPlayer.getAddCardNum();
+				int diff_client = gameMod.mainCardMods.Count - hostPlayer.getAddCardNum() - clientPlayer.getAddCardNum();
+				int hostAddNum,clientAddNum;
+				if(diff_host>=0){
+					hostAddNum = hostPlayer.getAddCardNum();
+					if(diff_client>=0){
+						clientAddNum = clientPlayer.getAddCardNum();
+					}else{
+						clientAddNum = gameMod.mainCardMods.Count - hostPlayer.getAddCardNum();
+					}
+				}else{
+					hostAddNum = gameMod.mainCardMods.Count;
+					clientAddNum = 0;
+					diff_host = 0;
+				}
+				hostPlayer.tempCount = gameMod.mainCardMods.Count;
+				hostPlayer.CmdAddCardToPlayer(hostPlayer.getPlayerId(), hostAddNum);
+				//Debug.LogError(gameMod.mainCardMods.Count);
+				int remain = gameMod.mainCardMods.Count - hostAddNum;
+				hostPlayer.tempCount = diff_host;
+				hostPlayer.CmdAddCardToPlayer(clientPlayer.getPlayerId(),clientAddNum);
+				//Debug.LogError(gameMod.mainCardMods.Count);
+			}
 		}
 
 
@@ -477,7 +502,7 @@ public class GameController : BaseSingletonController<GameController> {
 		foreach(PlayerController player in MatchController.Instance.players){
 			player.setIsControl(gameMod.control == player.getPlayerId());
 		}
-			
+		refreshCaedNumTxt();
 	}
 
 }
