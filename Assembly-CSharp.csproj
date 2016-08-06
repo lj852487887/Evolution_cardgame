@@ -82,9 +82,14 @@
      <Compile Include="Assets\Scripts\Skill\Property.cs" />
      <Compile Include="Assets\Scripts\Skill\base_skill.cs" />
      <Compile Include="Assets\Scripts\Skill\skill_aquatic.cs" />
+     <Compile Include="Assets\Scripts\Skill\skill_fastRun.cs" />
      <Compile Include="Assets\Scripts\Skill\skill_fat.cs" />
+     <Compile Include="Assets\Scripts\Skill\skill_flee.cs" />
      <Compile Include="Assets\Scripts\Skill\skill_hide.cs" />
      <Compile Include="Assets\Scripts\Skill\skill_predator.cs" />
+     <Compile Include="Assets\Scripts\Skill\skill_sharpEye.cs" />
+     <Compile Include="Assets\Scripts\Skill\skill_vampire.cs" />
+     <Compile Include="Assets\Scripts\Skill\skill_wisdom.cs" />
      <Compile Include="Assets\Scripts\View\AnimalSkin.cs" />
      <Compile Include="Assets\Scripts\View\AnimalView.cs" />
      <Compile Include="Assets\Scripts\View\BaseDraggtableView.cs" />
@@ -100,13 +105,9 @@
      <None Include="Assets\Demigiant\DOTween\readme.txt" />
      <None Include="Assets\Demigiant\DOTween\DOTween46.xml" />
      <None Include="Assets\Demigiant\DOTween\DOTween50.xml" />
-     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
      <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
-     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
      <None Include="Assets\Demigiant\DOTween\DOTween43.xml" />
-     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
-     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -114,16 +115,16 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="DOTween">
- <HintPath>/Users/lijun/Desktop/Github/game_design/TurnBasedMultipleTest/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ <HintPath>/Users/lijun/Desktop/Github/Evolution/TurnBasedMultipleTest/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="DOTween43">
- <HintPath>/Users/lijun/Desktop/Github/game_design/TurnBasedMultipleTest/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
+ <HintPath>/Users/lijun/Desktop/Github/Evolution/TurnBasedMultipleTest/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
  </Reference>
  <Reference Include="DOTween46">
- <HintPath>/Users/lijun/Desktop/Github/game_design/TurnBasedMultipleTest/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
+ <HintPath>/Users/lijun/Desktop/Github/Evolution/TurnBasedMultipleTest/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
  </Reference>
  <Reference Include="DOTween50">
- <HintPath>/Users/lijun/Desktop/Github/game_design/TurnBasedMultipleTest/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
+ <HintPath>/Users/lijun/Desktop/Github/Evolution/TurnBasedMultipleTest/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
