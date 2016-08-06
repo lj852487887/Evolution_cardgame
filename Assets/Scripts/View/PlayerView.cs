@@ -133,9 +133,11 @@ public class PlayerView : MonoBehaviour {
 	}
 
 	void jumpBack(int attackerIdx,int defenderIdx,Vector3 originPos,ConstEnums.PlayerId playerId){
-		this.PostNotification (OnAnimalEaten,defenderIdx);
 		animals[attackerIdx].transform.DOJump(originPos,5,1,0.5f);
+		this.PostNotification (OnAnimalEaten,defenderIdx);
 	}
+
+
 
 
     public void Clear ()

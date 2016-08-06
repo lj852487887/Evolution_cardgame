@@ -79,9 +79,16 @@ public class HuntActiveGameState : BaseGameState
 	void OnEnemyAnimalChoosen(object sender, object args){
 		Debug.Log("get enemy choose");
 		if (gameController.latestChoosenAnimalIndex >= 0 && gameView.isAttackClicked){
-			LocalPlayer.CmdAnimalAuto(gameController.latestChoosenAnimalIndex, (int)args, LocalPlayer.getPlayerId());
-			gameController.latestChoosenAnimalIndex = -1;
-			gameView.setAttackActive(false);
+			bool result = LocalPlayer.playerMod.animalMods [gameController.latestChoosenAnimalIndex].property.Attack (RemotePlayer.playerMod.animalMods [(int)args].property);
+			if (result) {
+				LocalPlayer.CmdAnimalAuto (gameController.latestChoosenAnimalIndex, (int)args, LocalPlayer.getPlayerId ());
+				gameController.latestChoosenAnimalIndex = -1;
+				gameView.setAttackActive (false);
+			} else {
+				LocalPlayer.CmdEndTurn ();
+
+			}
+
 		}
 
 	}

@@ -255,10 +255,19 @@ public class GameController : BaseSingletonController<GameController> {
 		int index = (int)args;
 		if(_currentState is HuntActiveGameState){
 			MatchController.Instance.remotePlayer.playerView.removeAnimal (index);
+			MatchController.Instance.remotePlayer.playerMod.removeAnimal (index);
 		}else{
 			MatchController.Instance.localPlayer.playerView.removeAnimal (index);
+			MatchController.Instance.localPlayer.playerMod.removeAnimal (index);
 		}
+		passTurn ();
 
+	}
+
+	public void passTurn(){
+		gameMod.ChangeTurn();
+		gameView.setPassBtnActive(false);
+		CheckState();
 	}
 
     //动物吃食物

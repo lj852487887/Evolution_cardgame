@@ -128,15 +128,18 @@ public class PlayerController : NetworkBehaviour {
 
     public void checkAnimalAlive(){
         //Debug.Log(playerMod.animalMods.Count);
-        for (int i = playerMod.animalMods.Count-1;i>=0;i--)
-        {
-            Debug.Log(playerMod.animalMods[i].index);
-            if (playerMod.animalMods[i].isFull() == false)
-            {
-                killAnimal(i);
-            }
-        }
-		playerView.refreshAnimalText();
+		if(playerMod.animalMods.Count>0){
+			for (int i = playerMod.animalMods.Count-1;i>=0;i--)
+			{
+				Debug.Log(playerMod.animalMods[i].index);
+				if (playerMod.animalMods[i].isFull() == false)
+				{
+					killAnimal(i);
+				}
+			}
+			playerView.refreshAnimalText();
+		}
+
 	}
 
 
@@ -220,7 +223,7 @@ public class PlayerController : NetworkBehaviour {
         int skillRange = ConstEnums.getSkillCount();
         for (int i =0;i<GameModel.MAX_CARD_NUM;i++)
         {
-            int randomType = UnityEngine.Random.Range(1, skillRange);
+			int randomType = UnityEngine.Random.Range(1, skillRange);
             Debug.Log("init main card " + (ConstEnums.Skills)randomType);
 			RpcInitMainCards(randomType,GameModel.MAX_CARD_NUM);
         }
@@ -469,14 +472,41 @@ public class PlayerController : NetworkBehaviour {
 			Vector3 pos =  MatchController.Instance.remotePlayer.getAnimalPosition (des);
 			Debug.Log ("id :  " + getPlayerId());
 			playerView.animalAttack(source,des,pos,playerId);
+
+			//给该动物吃食物，并获取该动物是否吃饱
+			bool isFull = playerMod.addFoodToAnimal(source,2);
+			if(isFull){
+				//如果吃饱，变成吃饱的颜色
+				playerView.setAnimalFull(source);
+			}
 		}else{
 			Vector3 pos = MatchController.Instance.localPlayer.getAnimalPosition (des);
 			Debug.Log ("id :  " + getPlayerId());
-			MatchController.Instance.remotePlayer.playerView.animalAttack(source,des,pos,playerId);
+			PlayerController remotePlayer = MatchController.Instance.remotePlayer;
+			remotePlayer.playerView.animalAttack(source,des,pos,playerId);
+			//给该动物吃食物，并获取该动物是否吃饱
+			bool isFull = playerMod.addFoodToAnimal(source,2);
+			if(isFull){
+				//如果吃饱，变成吃饱的颜色
+				playerView.setAnimalFull(source);
+			}
 		}
 
 
+
 	}
+
+
+	[Command]
+	public void CmdEndTurn(){			
+		RpcEndTurn ();
+	}
+
+	[ClientRpc]
+	public void RpcEndTurn(){
+		GameController.Instance.passTurn ();
+	}
+
 
 	//同步拖动动物
 	[Command]

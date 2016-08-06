@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Evolution;
-public class skill_aquatic : base_skill {
-	public skill_aquatic(AnimalModel animal){
+public class skill_fastRun : base_skill {
+	public skill_fastRun(AnimalModel animal){
 		thisAnimal = animal;
 		Enter ();
 	}
 	public override void Enter ()
 	{
 		base.Enter ();
-		skillName = ConstEnums.Skills.Aquatic;
-		Debug.Log("skill aquatic creat");
+		skillName = ConstEnums.Skills.FastRun;
+		Debug.Log("skill fast run creat");
 	}
 
 	public override bool Defend (Property attacker,Property defender)
@@ -18,7 +18,9 @@ public class skill_aquatic : base_skill {
 		bool result = base.Defend (attacker, defender);
 		bool isAttackerAquatic = attacker.getSkill(ConstEnums.Skills.Aquatic);
 		bool isDefenderAquatic = defender.getSkill(ConstEnums.Skills.Aquatic);
-		if(isDefenderAquatic && isDefenderAquatic){
+		int attackerSkillNum = attacker.getPropertyNumber ();
+		int defenderSkillNum = defender.getPropertyNumber ();
+		if(defenderSkillNum>attackerSkillNum){
 			result =  false;
 		}else{
 			result = true;

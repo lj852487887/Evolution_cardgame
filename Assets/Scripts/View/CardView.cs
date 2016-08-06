@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using Evolution;
 
 public class CardView: BaseDraggtableView {
-
+	public Texture predator,hide,aquatic,fat,vampire,sharpeye,wisdom,flee,fastrun;
 
 	CardView(){
 		MouseDrop = "CardView.MouseDrop";
@@ -21,16 +21,28 @@ public class CardView: BaseDraggtableView {
 		base.init (_mod);
 		switch(mod.cardType){
 		case ConstEnums.Skills.Fat:
-			setOriginColor(Color.yellow);
+			GetComponent<Renderer> ().material.SetTexture ("_MainTex", fat);
 			break;
 		case ConstEnums.Skills.Predator:
-			setOriginColor(Color.red);
+			GetComponent<Renderer> ().material.SetTexture ("_MainTex", predator);
 			break;
 		case ConstEnums.Skills.Hide:
-			setOriginColor(Color.gray);
+			GetComponent<Renderer> ().material.SetTexture ("_MainTex", hide);
 			break;
-		case ConstEnums.Skills.Aquatic:
-			setOriginColor(Color.blue);
+		case ConstEnums.Skills.Aquatic:		
+			GetComponent<Renderer> ().material.SetTexture ("_MainTex", aquatic);
+			break;
+		case ConstEnums.Skills.Vampire:		
+			GetComponent<Renderer> ().material.SetTexture ("_MainTex", vampire);
+			break;
+		case ConstEnums.Skills.FastRun:		
+			GetComponent<Renderer> ().material.SetTexture ("_MainTex", fastrun);
+			break;
+		case ConstEnums.Skills.SharpEye:		
+			GetComponent<Renderer> ().material.SetTexture ("_MainTex", sharpeye);
+			break;
+		case ConstEnums.Skills.Wisdom:		
+			GetComponent<Renderer> ().material.SetTexture ("_MainTex", wisdom);
 			break;
 		}
 	}

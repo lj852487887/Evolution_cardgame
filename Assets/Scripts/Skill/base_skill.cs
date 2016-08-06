@@ -1,17 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Evolution;
-public abstract class base_skill 
+public abstract class base_skill : MonoBehaviour 
 {
 	public int checkOrder;
 	public ConstEnums.Skills skillName;
-
+	private bool actived = false;
+	protected AnimalModel thisAnimal;
 	public base_skill(){
-		//Debug.Log("base skill start");
-		skillName = ConstEnums.Skills.None;
+		Debug.Log ("inside the base skill empty!!!!!");
 	}
 
+	public base_skill(AnimalModel animal){
+		thisAnimal = animal;
+		Enter ();
+	}
 
+	void Start ()
+	{
+		Debug.Log("base skill start");
+		skillName = ConstEnums.Skills.None;
+		Enter ();
+	}
+
+	public virtual void Enter ()
+	{
+	}
+
+	public virtual void setAnimal(AnimalModel remoteAnimal){
+		thisAnimal=remoteAnimal;
+	}
 	//主动攻击型属性  食肉  伏击 等
 	//默认总是失败 因为初始是食草动物
 	//仅用来判断当前条件是否具备攻击动作的条件
@@ -23,7 +41,7 @@ public abstract class base_skill
 	//被动防御型属性  伪装 飞奔 水生 等
 	//默认没有防御
 	//每项防御都会寻找各自有可能攻破本防御的技能，若找到了则防御成功，否则防御失败
-	public virtual bool Defend (Property attacker)
+	public virtual bool Defend (Property attacker,Property defender)
 	{
 		return false;
 	}
@@ -39,6 +57,7 @@ public abstract class base_skill
 	//默认总是成功
 	public virtual bool ActiveAction (AnimalModel animal)
 	{
+		
 		return true;
 	}
 

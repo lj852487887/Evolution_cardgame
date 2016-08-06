@@ -34,7 +34,13 @@ namespace Evolution{
 			Fat,
 			Predator,
 			Hide,
-			Aquatic
+			Aquatic,
+			SharpEye,
+			FastRun,
+			Fly,
+			Wisdom,
+			Vampire,
+			Flee
 		}
 
         static public int getSkillCount()
