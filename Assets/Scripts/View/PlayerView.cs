@@ -94,6 +94,8 @@ public class PlayerView : MonoBehaviour {
 		animal.transform.position = newPos;
 		if(isRemote){
 			animal.transform.rotation = Quaternion.Euler(0f,270f,0f);
+		}else{
+			animal.transform.rotation = Quaternion.Euler(0f,90f,0f);
 		}
 		animals.Add(animal);
 	}
@@ -104,9 +106,9 @@ public class PlayerView : MonoBehaviour {
 		animals.RemoveAt(animalIndex);
 	}
 
-	public void refreshAnimalText(){
+	public void refreshAnimalFoodText(bool enable = false){
 		foreach(GameObject animal in animals){
-			animal.GetComponent<AnimalView>().refreshText();
+			animal.GetComponent<AnimalView>().setFoodTextHuntMode(enable);
 		}
 	}
 
@@ -123,8 +125,8 @@ public class PlayerView : MonoBehaviour {
         animals[animalIndex].GetComponent<AnimalView>().setOriginColor();
     }
 
-	public void addSkillToAniml(int animalIdx,ConstEnums.Skills skill){
-		animals[animalIdx].GetComponent<AnimalView>().addSkillObj(skill);
+	public void addSkillToAniml(int animalIdx,ConstEnums.Skills skill,int neededFood){
+		animals[animalIdx].GetComponent<AnimalView>().addSkillView(skill,neededFood);
 	}
 
 	public void animalAttackAnimation(int attackerIdx,int defenderIdx, Vector3 defenderPos,bool isFull){

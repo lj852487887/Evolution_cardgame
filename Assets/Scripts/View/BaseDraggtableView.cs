@@ -47,7 +47,7 @@ public abstract class BaseDraggtableView: MonoBehaviour {
 	public virtual void init(BaseModel _mod){
 		originalColor = GetComponent<Renderer>().material.color;
 		mod = _mod;
-		refreshText();
+		//refreshText();
 	}
 
 	public void setOriginColor(Color color){
@@ -55,11 +55,7 @@ public abstract class BaseDraggtableView: MonoBehaviour {
 		GetComponent<Renderer>().material.color = originalColor;
 	}
 
-	public void refreshText(){
-		if(gameObject.GetComponentInChildren<TextMesh>()){
-			gameObject.GetComponentInChildren<TextMesh>().text = mod.index.ToString();
-		}
-	}
+
 
 	public virtual bool checkActive(){
 		if(mod.ownerId == MatchController.Instance.localPlayer.getPlayerId() && 

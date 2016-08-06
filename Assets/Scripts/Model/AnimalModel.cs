@@ -89,7 +89,7 @@ public class AnimalModel:BaseModel{
 		}
 	}
 
-	public void addSkillToProperty(ConstEnums.Skills skillType){
+	public int addSkillToProperty(ConstEnums.Skills skillType){
 		switch(skillType){
 		case ConstEnums.Skills.Fat:
 			property.addProperty(new skill_fat(this));
@@ -121,6 +121,7 @@ public class AnimalModel:BaseModel{
 		default:
 			break;
 		}
+		return neededFood;
 	}
 
 

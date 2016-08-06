@@ -120,7 +120,7 @@ public class PlayerController : NetworkBehaviour {
 					killAnimal(i);
 				}
 			}
-			playerView.refreshAnimalText();
+			//playerView.refreshAnimalText();
 		}
 
 	}
@@ -199,6 +199,9 @@ public class PlayerController : NetworkBehaviour {
     public void CmdInitMainCards()
     {
         int skillRange = ConstEnums.getSkillCount();
+		///////////////
+		skillRange = 5;
+		/////////////////
         for (int i =0;i<GameModel.MAX_CARD_NUM;i++)
         {
 			int randomType = UnityEngine.Random.Range(1, skillRange);
@@ -367,8 +370,8 @@ public class PlayerController : NetworkBehaviour {
 	[ClientRpc]
 	void RpcCreateSkill(int animalIdx,Evolution.ConstEnums.Skills skillType) {
         Debug.Log("rpc create skill:" + skillType);
-        playerMod.addSkillToAniml(animalIdx,skillType);
-		playerView.addSkillToAniml(animalIdx,skillType);
+        int neededFood = playerMod.addSkillToAniml(animalIdx,skillType);
+		playerView.addSkillToAniml(animalIdx,skillType,neededFood);
 		Debug.Log( getPlayerId() + " creat skill ");
 		this.PostNotification(RequestCreatAnimal);
 		//Instantiate (animalStatus, new Vector3 (pos.x, pos.y + 3.0f, pos.z), Quaternion.identity);
@@ -522,6 +525,7 @@ public class PlayerController : NetworkBehaviour {
     [ClientRpc]
     public void RpcShowFood(Vector3 position)
     {
+		MatchController.Instance.refreshAllPlayerFoodText(true);
         this.PostNotification(InitFood, position);
     }
 
@@ -535,6 +539,7 @@ public class PlayerController : NetworkBehaviour {
     [ClientRpc]
     public void RpcClearFood()
     {
+		MatchController.Instance.refreshAllPlayerFoodText();
         this.PostNotification(ClearFood);
     }
 
@@ -552,6 +557,7 @@ public class PlayerController : NetworkBehaviour {
 		//Debug.Log("animal "+animalIndex+" eat "+" food "+ foodIndex);
         //给该动物吃食物，并获取该动物是否吃饱
 		bool isFull = playerMod.addFoodToAnimal(animalIndex);
+		playerView.refreshAnimalFoodText(true);
 		if(isFull){
             //如果吃饱，变成吃饱的颜色
 			playerView.setAnimalFull(animalIndex);

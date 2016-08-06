@@ -13,6 +13,9 @@ public class AnimalView: BaseDraggtableView {
 	bool isFull;
 	public bool isFoodIn;
 	Material skin;
+	TextMesh foodText;
+	TextMesh skillText;
+	TextMesh indexText;
 
 	AnimalView(){
 		MouseDrop = "AnimalView.MouseDrop";
@@ -28,6 +31,29 @@ public class AnimalView: BaseDraggtableView {
 		base.init (_mod);
 		skin = GetComponentInChildren<AnimalSkin>().gameObject.GetComponent<Renderer>().material;
 		originalColor = skin.color;
+
+		TextMesh[] texts = GetComponentsInChildren<TextMesh>();
+		foreach(TextMesh text in texts){
+			switch(text.gameObject.name){
+			case "food":
+				foodText = text;
+				foodText.text = "1";
+				break;
+			case "skill":
+				skillText = text;
+				break;
+			}
+		}
+		if(mod.ownerId == MatchController.Instance.localPlayer.getPlayerId()){
+			Vector3 r = foodText.gameObject.transform.localEulerAngles;
+			r.y = 270;
+			Vector3 p = skillText.gameObject.transform.localPosition;
+			foodText.gameObject.transform.localEulerAngles = r;
+			skillText.gameObject.transform.localEulerAngles = r;
+			skillText.gameObject.transform.localPosition = foodText.gameObject.transform.localPosition;
+			foodText.gameObject.transform.localPosition = p;
+
+		}
 	}
 
 	public virtual void OnMouseEnter()  
@@ -64,6 +90,8 @@ public class AnimalView: BaseDraggtableView {
 
 	public void setFullColor()  
 	{ 
+		setFoodTextHuntMode(true);
+		foodText.color = Color.green;
 		Debug.Log("animal set full color");
 		skin.color = isFullColor;
 		isFull = true;
@@ -73,6 +101,7 @@ public class AnimalView: BaseDraggtableView {
     public void setOriginColor()
     {
         Debug.Log("animal set origin color");
+		foodText.color = Color.white;
 		skin.color = originalColor;
         isFull = false;
     }
@@ -81,7 +110,7 @@ public class AnimalView: BaseDraggtableView {
 		isFoodIn = false;
 	}
 
-	public void addSkillObj(ConstEnums.Skills skillType){
+	public void addSkillView(ConstEnums.Skills skillType,int neededFood){
 		int skillIdx = (int)skillType;
 		//GameObject skillObj = Instantiate(skillPrefbs[skillIdx]);	
 		//skillObjs.Add(skillObj);
@@ -103,7 +132,18 @@ public class AnimalView: BaseDraggtableView {
 			break;
 
 		};
-		text.text += skillType.ToString();
+		skillText.text += "<"+skillType.ToString().Substring(0,3)+">";
+		setFoodTextHuntMode();
+
+	}
+
+	public void setFoodTextHuntMode(bool isHunt=false){
+		AnimalModel tempMod = (AnimalModel)mod;
+		if(isHunt){
+			foodText.text = tempMod.currentFood.ToString() + "/" + tempMod.neededFood.ToString();
+		}else{
+			foodText.text = tempMod.neededFood.ToString();
+		}
 	}
 
 	void setColor(Color color){

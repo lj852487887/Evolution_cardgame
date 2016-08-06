@@ -83,8 +83,8 @@ public class PlayerModel {
 		return animalMods[index].isFull();
 	}
 
-	public void addSkillToAniml(int animalIdx,ConstEnums.Skills skill){
-		animalMods[animalIdx].addSkillToProperty(skill);
+	public int addSkillToAniml(int animalIdx,ConstEnums.Skills skill){
+		return animalMods[animalIdx].addSkillToProperty(skill);
 	}
 
 

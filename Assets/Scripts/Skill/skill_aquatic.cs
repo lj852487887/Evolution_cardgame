@@ -19,7 +19,9 @@ public class skill_aquatic : base_skill {
 		bool result = base.Defend (attacker, defender);
 		bool isAttackerAquatic = attacker.getSkill(ConstEnums.Skills.Aquatic);
 		bool isDefenderAquatic = defender.getSkill(ConstEnums.Skills.Aquatic);
-		if(isDefenderAquatic && isDefenderAquatic){
+		Debug.Log("is attacker aquatic:"+isAttackerAquatic);
+		Debug.Log("is defender aquatic:"+isDefenderAquatic);
+		if(isAttackerAquatic && isDefenderAquatic){
 			Debug.Log("botn aquatic or botn not!!! attack success");
 			result =  false;
 		}else{

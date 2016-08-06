@@ -111,6 +111,12 @@ public class MatchController : BaseSingletonController<MatchController> {
 		}
 	}
 
+	public void refreshAllPlayerFoodText(bool enable = false){
+		foreach(PlayerController player in players){
+			player.playerView.refreshAnimalFoodText(enable);
+		}
+	}
+
 	public PlayerController getPlayerById(ConstEnums.PlayerId playerId){
 		PlayerController returnPlayer = null;
 		foreach(PlayerController player in players){
