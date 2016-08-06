@@ -26,7 +26,7 @@ public class GameController : BaseSingletonController<GameController> {
 
 	public Vector3 latestChoosenFoodPosition;
 	public Vector3 latestChoosenCardPosition;
-	public int latestChoosenAnimalIndex = -1;
+	public int curActingAnimalIndex = -1;
 
 	void Awake(){
 		gameMod = new GameModel();
@@ -250,6 +250,31 @@ public class GameController : BaseSingletonController<GameController> {
         gameMod.clearFood();
     }
     
+
+
+
+	public void onCurAnimalChoosen(int animalIdx,Vector3 pos){
+		curActingAnimalIndex = animalIdx;
+		gameView.setActionBtnActive(animalIdx, pos);
+	}
+
+	public void onEnemyAnimalChoosen(int enemyAnimalIndex){
+		if (curActingAnimalIndex >= 0 && gameView.actionBtnClicked){
+			PlayerController localPlayer = MatchController.Instance.localPlayer;
+			bool result = localPlayer.checkAnimalAttck(curActingAnimalIndex,enemyAnimalIndex);
+
+			if (result) {
+				localPlayer.CmdAnimalAuto (curActingAnimalIndex, enemyAnimalIndex, localPlayer.getPlayerId ());
+				curActingAnimalIndex = -1;
+				gameView.actionBtnClicked = false;
+			} else {
+				localPlayer.CmdEndTurn ();
+			}
+
+		}
+	}
+
+
 	void OnAnimalEaten(object sender, object args){
 		Debug.Log("animal eaten "+ (int)args);
 		int index = (int)args;
@@ -260,11 +285,11 @@ public class GameController : BaseSingletonController<GameController> {
 			MatchController.Instance.localPlayer.playerView.removeAnimal (index);
 			MatchController.Instance.localPlayer.playerMod.removeAnimal (index);
 		}
-		passTurn ();
+		endTurn ();
 
 	}
 
-	public void passTurn(){
+	public void endTurn(){
 		gameMod.ChangeTurn();
 		gameView.setPassBtnActive(false);
 		CheckState();

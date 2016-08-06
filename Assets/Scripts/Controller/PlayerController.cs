@@ -56,26 +56,7 @@ public class PlayerController : NetworkBehaviour {
 	void Update () {
 	
 	}
-
-	void OnEnable ()
-	{
-		//this.AddObserver(OnDidBeginGame, GameModel.DidBeginGameNotification);
-		//this.AddObserver(OnDidPlaceCard, GameModel.DidPutCardNotification);
-		//this.AddObserver(OnDidChangeControl, GameModel.DidChangeControlNotification);
-		//this.AddObserver(OnDidEndGame, GameModel.DidEndGameNotification);
-		//this.AddObserver(OnRandomCreated, PlayerController.RandomCreated);
-		//this.AddObserver(OnRequestPlaceCard, PlayerController.RequestPlaceCard);
-	}
-
-	void OnDisable ()
-	{
-		//this.RemoveObserver(OnDidBeginGame, GameModel.DidBeginGameNotification);
-		//this.RemoveObserver(OnDidPlaceCard, GameModel.DidPlaceCardNotification);
-		//this.RemoveObserver(OnDidChangeControl, GameModel.DidChangeControlNotification);
-		//this.RemoveObserver(OnDidEndGame, GameModel.DidEndGameNotification);
-		//this.RemoveObserver(OnRandomCreated, PlayerController.RandomCreated);
-		//this.RemoveObserver(OnRequestPlaceCard, PlayerController.RequestPlaceCard);
-	}
+		
 
 	public override void OnStartClient ()
 	{
@@ -126,6 +107,8 @@ public class PlayerController : NetworkBehaviour {
         }
     }
 
+
+	//检查玩家的动物是否吃饱，杀掉没吃饱的
     public void checkAnimalAlive(){
         //Debug.Log(playerMod.animalMods.Count);
 		if(playerMod.animalMods.Count>0){
@@ -157,11 +140,6 @@ public class PlayerController : NetworkBehaviour {
 			return true;
 		}else{
 			return false;
-//			if(checkCardEmpty()){
-//				return true;
-//			}else{
-//				return false;
-//			}
 		}
 	}
 
@@ -329,10 +307,6 @@ public class PlayerController : NetworkBehaviour {
 			float right = animalCenter.x + animalSize.x / 2;
 			float top = animalCenter.z + animalSize.z / 2;
 			float bottom = animalCenter.z - animalSize.z / 2;
-			//Debug.Log ("Animal size:" + animalSize);
-			//Debug.Log ("Animal center:" + animalCenter);
-			//Debug.Log ("Animal area:(" + top + "," + right + "," + bottom + "," + left + ")");
-			//Debug.Log ("Card position:" + position);
 
 			if (position.x <  right && position.x > left) {
 				if (position.z < top && position.z > bottom) {
@@ -460,6 +434,10 @@ public class PlayerController : NetworkBehaviour {
 		return playerMod.animalMods.Count;
 	}
 
+	public bool checkAnimalAttck(int attackerIdx,int defenderIdx){
+		return playerMod.checkAnimalAttack(attackerIdx,defenderIdx);
+	}
+
 	[Command]
 	public void CmdAnimalAuto(int src,int des,ConstEnums.PlayerId playerId){			
 		RpcMoveAnimalAuto(src,des,playerId);
@@ -504,7 +482,7 @@ public class PlayerController : NetworkBehaviour {
 
 	[ClientRpc]
 	public void RpcEndTurn(){
-		GameController.Instance.passTurn ();
+		GameController.Instance.endTurn ();
 	}
 
 

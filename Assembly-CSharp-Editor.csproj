@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{743E1364-72C6-2C4F-2E7F-CF4DAFCB3CD2}</ProjectGuid>
+    <ProjectGuid>{38839608-9796-2505-0056-DD0ED979D8BE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -77,19 +77,19 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
  </Reference>
  <Reference Include="DOTween">
- <HintPath>/Users/lijun/Desktop/Github/Evolution/TurnBasedMultipleTest/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ <HintPath>/Users/lijun/Desktop/Github/Evolution/Evolution_cardgame/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="DOTween43">
- <HintPath>/Users/lijun/Desktop/Github/Evolution/TurnBasedMultipleTest/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
+ <HintPath>/Users/lijun/Desktop/Github/Evolution/Evolution_cardgame/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
  </Reference>
  <Reference Include="DOTween46">
- <HintPath>/Users/lijun/Desktop/Github/Evolution/TurnBasedMultipleTest/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
+ <HintPath>/Users/lijun/Desktop/Github/Evolution/Evolution_cardgame/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
  </Reference>
  <Reference Include="DOTween50">
- <HintPath>/Users/lijun/Desktop/Github/Evolution/TurnBasedMultipleTest/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
+ <HintPath>/Users/lijun/Desktop/Github/Evolution/Evolution_cardgame/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
  </Reference>
  <Reference Include="DOTweenEditor">
- <HintPath>/Users/lijun/Desktop/Github/Evolution/TurnBasedMultipleTest/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ <HintPath>/Users/lijun/Desktop/Github/Evolution/Evolution_cardgame/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.Graphs.dll</HintPath>
@@ -112,9 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{B192048C-3A22-AE2B-8502-FFF845DEC7E5}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{321BB76C-1C8B-CC16-E26B-CECDDB92DD17}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{7DDFBBAC-53C3-E312-BD48-AB8793F17F0E}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{8DB1D44E-A97A-D44A-F17A-88DA22D4C02C}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

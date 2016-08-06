@@ -20,7 +20,7 @@ public class HuntActiveGameState : BaseGameState
 		this.AddObserver(OnFoodViewDrop, "FoodView.MouseDrop");
 		this.AddObserver(OnFoodViewMove, "FoodView.MouseDrag");
 		this.AddObserver(OnFoodViewChoosen, "FoodView.MouseDown");
-        this.AddObserver(OnAnimalChoosen, "AnimalView.MouseDown");
+        this.AddObserver(OnCurrentAnimalChoosen, "AnimalView.MouseDown");
 		this.AddObserver(OnEnemyAnimalChoosen, "AnimalView.MouseOnEny");
         this.AddObserver(OnAnimalDroped, "AnimalView.MouseDrop");
         this.AddObserver(OnAnimalDraged, "AnimalView.MouseDrag");
@@ -33,7 +33,7 @@ public class HuntActiveGameState : BaseGameState
 		this.RemoveObserver(OnFoodViewDrop, "FoodView.MouseDrop");
 		this.RemoveObserver(OnFoodViewMove, "FoodView.MouseDrag");
 		this.RemoveObserver(OnFoodViewChoosen, "FoodView.MouseDown");
-        this.RemoveObserver(OnAnimalChoosen, "AnimalView.MouseDown");
+        this.RemoveObserver(OnCurrentAnimalChoosen, "AnimalView.MouseDown");
 		this.RemoveObserver(OnEnemyAnimalChoosen, "AnimalView.MouseOnEny");
         this.RemoveObserver(OnAnimalDroped, "AnimalView.MouseDrop");
         this.RemoveObserver(OnAnimalDraged, "AnimalView.MouseDrag");
@@ -65,32 +65,19 @@ public class HuntActiveGameState : BaseGameState
 		gameController.foodEaten(index);
 	}
 
-	void OnAnimalChoosen(object sender, object args){
+	void OnCurrentAnimalChoosen(object sender, object args){
 
 		Vector3 pos = LocalPlayer.getAnimalPosition((int)args);
 		pos.x = pos.x - 1.5f;
 		pos.z = pos.z + 1.5f;
 		Vector3 screenSpace = Camera.main.WorldToScreenPoint (pos);
-		gameController.latestChoosenAnimalIndex = (int)args;
-		gameView.setActionBtnActive((int)args, screenSpace);
+		gameController.onCurAnimalChoosen((int)args,screenSpace);
 
 	}
 
 	void OnEnemyAnimalChoosen(object sender, object args){
 		Debug.Log("get enemy choose");
-		if (gameController.latestChoosenAnimalIndex >= 0 && gameView.isAttackClicked){
-			bool result = LocalPlayer.playerMod.animalMods [gameController.latestChoosenAnimalIndex].property.Attack (RemotePlayer.playerMod.animalMods [(int)args].property);
-			if (result) {
-				LocalPlayer.CmdAnimalAuto (gameController.latestChoosenAnimalIndex, (int)args, LocalPlayer.getPlayerId ());
-				gameController.latestChoosenAnimalIndex = -1;
-				gameView.setAttackActive (false);
-			} else {
-				LocalPlayer.CmdEndTurn ();
-
-			}
-
-		}
-
+		gameController.onEnemyAnimalChoosen((int)args);
 	}
 
     void OnAnimalDraged(object sender, object args)

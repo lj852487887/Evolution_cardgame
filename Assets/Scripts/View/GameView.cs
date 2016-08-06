@@ -114,32 +114,36 @@ public class GameView : MonoBehaviour,IPointerClickHandler {
 		this.PostNotification(PassBtnClickedNotification);
 
 	}
-
-	public bool isActionShow = false;
-
-	public void setActionActive(bool enable){
-		isAttackClicked = enable;
-		Debug.Log("attack is clicked! "+ enable);
-	}
+		
 
 	public void setActionBtnActive(int animalIdx, Vector3 position){
-		if(isActionShow == false){
-			AnimalModel animal =  MatchController.Instance.localPlayer.playerMod.animalMods[animalIdx];
-			if(animal.property.canAttack()){
-				GameObject btn =  (GameObject)Instantiate(animalActionBtn,position,Quaternion.identity);
-				actionBtns.Add(btn);
-				btn.GetComponentInChildren<Text>().text = "Attack";
-				btn.transform.SetParent(canvas.transform);
-				btn.GetComponent<Button>().onClick.AddListener(() => setAttackActive(true));
-			}
+		AnimalModel animal =  MatchController.Instance.localPlayer.playerMod.animalMods[animalIdx];
+		if(animal.property.canAttack()){
+			GameObject btn =  (GameObject)Instantiate(animalActionBtn,position,Quaternion.identity);
+			addActionBtn(btn,"Attack");
 		}
-		isActionShow = !isActionShow;
 	}
 
-	public bool isAttackClicked = false;
+	void addActionBtn(GameObject btn,string text){
+		actionBtns.Add(btn);
+		btn.GetComponentInChildren<Text>().text = text;
+		btn.transform.SetParent(canvas.transform);
+		btn.GetComponent<Button>().onClick.AddListener(() => setActionBtnClicked(true));
+	}
 
-	public void setAttackActive(bool enable){
-		isAttackClicked = enable;
+	void clearActionBtn(){
+		for(int i = actionBtns.Count -1;i>=0;i--){
+			GameObject btn = actionBtns[i];
+			Destroy(btn);
+		}
+		actionBtns.Clear();
+	}
+
+	public bool actionBtnClicked = false;
+
+	public void setActionBtnClicked(bool enable){
+		actionBtnClicked = enable;
+		clearActionBtn();
 		Debug.Log("attack is clicked! "+ enable);
 	}
 

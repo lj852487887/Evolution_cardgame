@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{B192048C-3A22-AE2B-8502-FFF845DEC7E5}</ProjectGuid>
+    <ProjectGuid>{321BB76C-1C8B-CC16-E26B-CECDDB92DD17}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
@@ -94,16 +94,16 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="DOTween">
- <HintPath>/Users/lijun/Desktop/Github/Evolution/TurnBasedMultipleTest/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ <HintPath>/Users/lijun/Desktop/Github/Evolution/Evolution_cardgame/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="DOTween43">
- <HintPath>/Users/lijun/Desktop/Github/Evolution/TurnBasedMultipleTest/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
+ <HintPath>/Users/lijun/Desktop/Github/Evolution/Evolution_cardgame/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
  </Reference>
  <Reference Include="DOTween46">
- <HintPath>/Users/lijun/Desktop/Github/Evolution/TurnBasedMultipleTest/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
+ <HintPath>/Users/lijun/Desktop/Github/Evolution/Evolution_cardgame/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
  </Reference>
  <Reference Include="DOTween50">
- <HintPath>/Users/lijun/Desktop/Github/Evolution/TurnBasedMultipleTest/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
+ <HintPath>/Users/lijun/Desktop/Github/Evolution/Evolution_cardgame/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

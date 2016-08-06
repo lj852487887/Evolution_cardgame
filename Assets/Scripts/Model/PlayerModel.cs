@@ -61,6 +61,18 @@ public class PlayerModel {
 		refreshAnimalsIndex();
 	}
 
+	public Property getAnimalPropertyByIdx(int index){
+		
+		return animalMods[index].property;
+	}
+
+	public bool checkAnimalAttack(int attackerIdx,int defenderIdx){
+		bool result = true;
+		Property defenderProperty =  MatchController.Instance.remotePlayer.playerMod.getAnimalPropertyByIdx(defenderIdx);
+		result = animalMods [attackerIdx].property.Attack (defenderProperty);
+		return result;
+	}
+
     public void resetAnimal(int index)
     {
         animalMods[index].resetFood();
