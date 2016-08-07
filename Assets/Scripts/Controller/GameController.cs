@@ -482,6 +482,7 @@ public class GameController : BaseSingletonController<GameController> {
 				}
 			}
 		}else if(gameMod.state == ConstEnums.GameState.None){
+			//第一次进入进化阶段
 			if(!MatchController.Instance.checkAllPlayerPassEvolute()){
 				Debug.LogWarning("enter evolute state");
 				gameMod.setState(ConstEnums.GameState.Evolute);
