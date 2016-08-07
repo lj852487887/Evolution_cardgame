@@ -126,8 +126,8 @@ public class PlayerController : NetworkBehaviour {
 	}
 
 
-	public bool checkAnimalFull(int animalIndex){
-		return playerMod.animalMods[animalIndex].isFull();
+	public bool checkAnimalCanEat(int animalIndex){
+		return playerMod.animalMods[animalIndex].canEat();
 	}
 
 	public void killAnimal(int index){

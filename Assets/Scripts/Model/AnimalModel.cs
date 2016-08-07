@@ -32,37 +32,28 @@ public class AnimalModel:BaseModel{
 		property = new Property(this);
 	}
 	//脂肪
-	public void getFat(){
-		fatNum++;
+	public void getFat(int num=1){
+		fatNum += num;
 	}//吸血
 	public void raiseNeed(int num=1){
 		neededFood+=num;
 	}
 
 	public bool eatFood(ConstEnums.Food food,int num =1) {
-		if(currentFood<neededFood){
-			if(currentFood + num > neededFood){
-				//增加脂肪
-				int extraFood = currentFood+num-neededFood;
-				if (extraFood+currentFatFood >= fatNum) {
-					extraFood = fatNum-currentFatFood;
-				}
-				currentFatFood += extraFood;
-				currentFood = neededFood;
-			}else{
-				currentFood += num;
-			}
-			return true;
-		}else if(currentFatFood<fatNum){
-			int extraFood = num;
-			if (extraFood+currentFatFood >= fatNum) {
-				extraFood = fatNum-currentFatFood;
-			}
-			currentFatFood += extraFood;
-			return true;
-		}
-		else{
+		if(currentFood + num <= neededFood){
+			currentFood += num;
 			return false;
+		}else{
+			currentFood = neededFood;
+			if(fatNum>0 && currentFatFood<fatNum){
+				int diff = currentFood + num - neededFood;
+				if(currentFatFood + diff <= fatNum){
+					currentFatFood += diff;
+				}else{
+					currentFatFood = fatNum;
+				}
+			}
+			return true;
 		}
 	}
 
@@ -71,23 +62,34 @@ public class AnimalModel:BaseModel{
 		currentFood = 0;
 	}
 
+
 	public bool isFull(){
-		if (neededFood > currentFood + currentFatFood)
-		{
+		if (neededFood > currentFood + currentFatFood){
 			return false;
 		}
 		else{
-			if (neededFood > currentFood)
+			if (neededFood > currentFood )
 			{
-				currentFatFood = currentFatFood - (neededFood - currentFood);
-				if (currentFatFood >= fatNum)
-				{
-					currentFatFood = fatNum;
-				}
+				int diff = neededFood - currentFood;
+				currentFatFood -= diff;
 			}
 			return true;
 		}
 	}
+
+	public bool canEat(){
+		bool result = true;
+		if(neededFood <= currentFood){
+			if (fatNum > currentFatFood)
+			{
+				result = true;
+			}else{
+				result = false;
+			}
+		}
+		return result;
+	}
+
 
 	public int addSkillToProperty(ConstEnums.Skills skillType){
 		switch(skillType){

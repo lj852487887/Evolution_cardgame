@@ -86,6 +86,7 @@ public class Property: MonoBehaviour{
 			result = o.Defend (attacker,defender);
 			if (result) {//若其中有一项技能防御成功过则通过
 				if(hasWisdom){//若有智慧，本次防御无视
+					result = false;
 					hasWisdom = false;
 					continue;
 				}

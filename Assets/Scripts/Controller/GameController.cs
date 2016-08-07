@@ -382,7 +382,7 @@ public class GameController : BaseSingletonController<GameController> {
 						(foodPosition.z < top && foodPosition.z > bottom) && animalView.isMouseEnter) 
 					{
 						int animalIndex = animal.GetComponent<AnimalView> ().mod.index;
-						if(currentPlayer.checkAnimalFull(animalIndex) == false){
+						if(currentPlayer.checkAnimalCanEat(animalIndex) == true){
 							currentPlayer.CmdEatFood (animalIndex, foodIndex);
 							isFoodEat = true;
 							Debug.Log("animal "+animalIndex+"eat food "+foodIndex);		

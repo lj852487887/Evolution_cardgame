@@ -111,24 +111,26 @@ public class AnimalView: BaseDraggtableView {
 	}
 
 	public void addSkillView(ConstEnums.Skills skillType,int neededFood){
-		int skillIdx = (int)skillType;
 		//GameObject skillObj = Instantiate(skillPrefbs[skillIdx]);	
 		//skillObjs.Add(skillObj);
 		//skillObj.transform.parent=transform;
 		//float z = -1f + skillObjs.Count*0.4f;
 		//skillObj.transform.localPosition = new Vector3(0f,1.1f,z);
-		switch(skillIdx){
-		case 1:
+		switch(skillType){
+		case ConstEnums.Skills.Fat:
 			setColor(Color.yellow);
 			break;
-		case 2:
+		case ConstEnums.Skills.Predator:
 			setColor(Color.red);
 			break;
-		case 3:
+		case ConstEnums.Skills.Hide:
 			setColor(Color.gray);
 			break;
-		case 4:
+		case ConstEnums.Skills.Aquatic:
 			setColor(Color.blue);
+			break;
+		case ConstEnums.Skills.Wisdom:
+			setColor(Color.cyan);
 			break;
 
 		};
@@ -139,10 +141,15 @@ public class AnimalView: BaseDraggtableView {
 
 	public void setFoodTextHuntMode(bool isHunt=false){
 		AnimalModel tempMod = (AnimalModel)mod;
+		string fatString = "";
+		if(tempMod.fatNum>0){
+			fatString = " F:"+ tempMod.currentFatFood.ToString() + "/" + tempMod.fatNum.ToString();
+		}
+
 		if(isHunt){
-			foodText.text = tempMod.currentFood.ToString() + "/" + tempMod.neededFood.ToString();
+			foodText.text = tempMod.currentFood.ToString() + "/" + tempMod.neededFood.ToString() + fatString;
 		}else{
-			foodText.text = tempMod.neededFood.ToString();
+			foodText.text = tempMod.neededFood.ToString() + fatString;
 		}
 	}
 

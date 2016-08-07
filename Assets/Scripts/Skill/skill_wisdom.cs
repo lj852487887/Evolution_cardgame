@@ -9,6 +9,7 @@ public class skill_wisdom : base_skill {
 	public override void Enter ()
 	{
 		base.Enter ();
+		thisAnimal.raiseNeed ();
 		skillName = ConstEnums.Skills.Wisdom;
 		Debug.Log("skill wisdom creat");
 	}

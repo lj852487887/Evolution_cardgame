@@ -53,7 +53,21 @@ public class CardView: BaseDraggtableView {
 		case ConstEnums.Skills.Wisdom:		
 			GetComponent<Renderer> ().material.SetTexture ("_MainTex", wisdom);
 			break;
+		case ConstEnums.Skills.Flee:		
+			GetComponent<Renderer> ().material.SetTexture ("_MainTex", flee);
+			break;
 		}
+	}
+
+
+	public override void OnMouseEnter()  
+	{  
+
+	}
+
+	public override void OnMouseExit()
+	{  
+
 	}
 
 
