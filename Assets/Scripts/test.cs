@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class test : MonoBehaviour {
-
+	/// <summary>
+	/// //////tst
+	/// </summary>
 	public enum Player{
 		None,
 		One,
