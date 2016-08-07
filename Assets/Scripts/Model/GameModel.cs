@@ -10,10 +10,7 @@ public class GameModel{
 	public ConstEnums.PlayerId control { get; private set; }
 	public ConstEnums.PlayerId winner { get; private set; }
 
-	public static int MAX_CARD_NUM = 30;
-    public static int MAX_PREDATOR_CARD_NUM = 15;
-    public static int MAX_AQUATIC_CARD_NUM = 10;
-    public static int MAX_FAT_CARD_NUM = 5;
+
 
     public List<CardModel> mainCardMods;
 	public List<FoodModel> foodMods;

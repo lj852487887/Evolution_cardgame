@@ -1,0 +1,26 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Controller/GameController.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Controller/PlayerController.cs" Line="264" Column="50" />
+      <File FileName="Assets/Scripts/View/PlayerView.cs" Line="124" Column="11" />
+      <File FileName="Assets/Scripts/View/AnimalView.cs" Line="103" Column="11" />
+      <File FileName="Assets/Scripts/View/BaseDraggtableView.cs" Line="58" Column="1" />
+      <File FileName="Assets/Scripts/Controller/MatchController.cs" Line="87" Column="14" />
+      <File FileName="Assets/Scripts/Controller/States/EvoluteActiveGameState.cs" Line="11" Column="1" />
+      <File FileName="Assets/Scripts/Controller/GameController.cs" Line="255" Column="36" />
+      <File FileName="Assets/Scripts/View/GameView.cs" Line="100" Column="34" />
+      <File FileName="Assets/Scripts/Model/GameModel.cs" Line="83" Column="24" />
+      <File FileName="Assets/Scripts/Skill/skill_vampire.cs" Line="12" Column="23" />
+      <File FileName="Assets/Scripts/Model/AnimalModel.cs" Line="21" Column="1" />
+      <File FileName="Assets/Scripts/Controller/States/HuntActiveGameState.cs" Line="92" Column="11" />
+      <File FileName="Assets/Scripts/Skill/Property.cs" Line="104" Column="5" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/lijun/Desktop/Github/Evolution/Evolution_cardgame/Assets/Scripts/Model/GameModel.cs" line="27" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

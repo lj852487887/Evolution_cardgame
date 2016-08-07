@@ -8,12 +8,7 @@ public class EvoluteActiveGameState : BaseGameState
 		base.Enter ();
 		turnTxt.text = "Your Turn!";
 		stateTxt.text = "Evolute Active State";
-		if(gameMod.mainCardMods.Count>0){
-			Debug.Log("cur remain cards:"+gameMod.mainCardMods.Count.ToString());
-			foodTxt.text = gameMod.mainCardMods.Count.ToString();
-		}else{
-			foodTxt.text = "last round !";
-		}
+
 		checkPassEvolute();
 		RefreshPlayerLabels();
 	}
@@ -101,6 +96,7 @@ public class EvoluteActiveGameState : BaseGameState
 
 	void OnPassBtnClicked (object sender, object args)
 	{
+		Debug.Log(LocalPlayer.getPlayerId() + " pass btn clicked");
 		LocalPlayer.CmdPassEvolute();
 	}
 }

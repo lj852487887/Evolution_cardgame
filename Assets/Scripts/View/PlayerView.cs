@@ -121,7 +121,7 @@ public class PlayerView : MonoBehaviour {
 
     public void resetAnimal(int animalIndex)
     {
-        Debug.Log("animal" + animalIndex + "is empty!!");
+        //Debug.Log("animal" + animalIndex + "is empty!!");
         animals[animalIndex].GetComponent<AnimalView>().setOriginColor();
     }
 

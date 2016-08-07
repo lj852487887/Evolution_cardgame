@@ -100,7 +100,7 @@ public class AnimalView: BaseDraggtableView {
 
     public void setOriginColor()
     {
-        Debug.Log("animal set origin color");
+        //Debug.Log("animal set origin color");
 		foodText.color = Color.white;
 		skin.color = originalColor;
         isFull = false;

@@ -203,15 +203,17 @@ public class GameController : BaseSingletonController<GameController> {
         isInitFood = false;
     }
 
-
-    //新的一轮开始，为每位玩家补牌
-	void addCards(){
+	void resetPlayers(){
 		foreach(PlayerController player in MatchController.Instance.players){
 			player.initNextRound();
 			Debug.Log("init Next Round for player!");
-			int num = player.getAddCardNum();
 		}
-		if(MatchController.Instance.checkHostIsLocal()){
+	}
+
+
+    //新的一轮开始，为每位玩家补牌
+	void addCards(){
+		if(MatchController.Instance.hostPlayer.isLocalPlayer){
 			//Debug.LogError(gameMod.mainCardMods.Count);
 			if(gameMod.mainCardMods.Count>0){
 				PlayerController hostPlayer = MatchController.Instance.hostPlayer;
@@ -232,16 +234,29 @@ public class GameController : BaseSingletonController<GameController> {
 					diff_host = 0;
 				}
 				hostPlayer.tempCount = gameMod.mainCardMods.Count;
+				Debug.Log("add cards main cards:"+gameMod.mainCardMods.Count);
+				Debug.Log("add cards host add:"+hostAddNum);
+				Debug.Log("add cards client add:"+clientAddNum);
 				hostPlayer.CmdAddCardToPlayer(hostPlayer.getPlayerId(), hostAddNum);
 				//Debug.LogError(gameMod.mainCardMods.Count);
-				int remain = gameMod.mainCardMods.Count - hostAddNum;
 				hostPlayer.tempCount = diff_host;
+				Debug.Log("add cards diff_host:"+diff_host);
 				hostPlayer.CmdAddCardToPlayer(clientPlayer.getPlayerId(),clientAddNum);
 				//Debug.LogError(gameMod.mainCardMods.Count);
 			}
 		}
 
 
+	}
+
+
+	public void refreshMainCardsTxt(){
+		cardNumTxt.text = gameMod.mainCardMods.Count.ToString();
+		if(gameMod.mainCardMods.Count>0){
+			gameView.foodTxt.text = gameMod.mainCardMods.Count.ToString();
+		}else{
+			gameView.foodTxt.text = "last round !";
+		}
 	}
 
     //初始化猎食阶段
@@ -481,12 +496,13 @@ public class GameController : BaseSingletonController<GameController> {
 				gameMod.setState(ConstEnums.GameState.Evolute);
 				Debug.LogWarning("check animal alive");
 				checkHuntState();
-				Debug.LogWarning("add next round cards");
+				resetPlayers();
 				if(gameMod.control == MatchController.Instance.localPlayer.getPlayerId()){
 					ChangeState<EvoluteActiveGameState>();
 				}else{
 					ChangeState<EvolutePassiveGameState>();
 				}
+				Debug.LogWarning("add next round cards");
 				addCards();
 			}else{
 				Debug.LogWarning("repeat hunt state");

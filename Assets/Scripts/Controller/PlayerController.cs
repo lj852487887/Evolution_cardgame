@@ -136,6 +136,7 @@ public class PlayerController : NetworkBehaviour {
 	}
 
 	public bool checkPassEvolute(){
+		Debug.Log(getPlayerId()+ " check pass evolute: "+isEvolutePass);
 		if(isEvolutePass){
 			return true;
 		}else{
@@ -247,11 +248,11 @@ public class PlayerController : NetworkBehaviour {
 		if(i==0){
 			tempCardModels.Clear();
 		}
-		Debug.Log("card from host to "+playerId+" , no."+i);
-		Debug.Log("temp count "+tempCount);
+		//Debug.Log("card from host to "+playerId+" , no."+i);
+		//Debug.Log("temp count "+tempCount);
 		List<CardModel> mainCardMods =  GameController.Instance.gameMod.mainCardMods;
-		Debug.Log("cur maincard count: "+mainCardMods.Count);
-		Debug.Log("draw card index: "+cardIndex);
+		//Debug.Log("cur maincard count: "+mainCardMods.Count);
+		//Debug.Log("draw card index: "+cardIndex);
 		CardModel cardMod = mainCardMods[cardIndex];
 		cardMod.setOwner(playerId);
 		mainCardMods.Remove(cardMod);
@@ -260,6 +261,7 @@ public class PlayerController : NetworkBehaviour {
 
 		if(i == TotalNum - 1){
 			initCards(playerId,tempCardModels);
+			GameController.Instance.refreshMainCardsTxt();
 		}
 		//
 		//initCards(playerId,cardModels,cardObjList,TotalNum);
@@ -336,10 +338,10 @@ public class PlayerController : NetworkBehaviour {
 		float right = boardCenter.x + boardSize.x / 2;
 		float top = boardCenter.z + boardSize.z / 2;
 		float bottom = boardCenter.z - boardSize.z / 2;
-		Debug.Log ("size:" + boardSize);
-		Debug.Log ("center:" + boardCenter);
-		Debug.Log ("area:(" + top + "," + right + "," + bottom + "," + left + ")");
-		Debug.Log ("my position:" + position);
+		//Debug.Log ("size:" + boardSize);
+		//Debug.Log ("center:" + boardCenter);
+		//Debug.Log ("area:(" + top + "," + right + "," + bottom + "," + left + ")");
+		//Debug.Log ("my position:" + position);
 		if (position.x <  right && position.x > left) {
 			if (position.z < top && position.z > bottom) {
 				return true;
@@ -356,7 +358,7 @@ public class PlayerController : NetworkBehaviour {
 				Evolution.ConstEnums.Skills skillType = playerMod.cardMods[cardIndex].cardType;
 				Debug.Log("create skill:"+skillType);
 				RpcRemoveCard (cardIndex);
-				Debug.Log ("i am on animal");
+				//Debug.Log ("i am on animal");
 				RpcCreateSkill (animalIdx,skillType);
 			} else if(animalIdx == ConstEnums.ANIMAL_HAS_SKILL){
 				RpcMoveCard (cardIndex, GameController.Instance.latestChoosenCardPosition);
@@ -371,10 +373,10 @@ public class PlayerController : NetworkBehaviour {
 
 	[ClientRpc]
 	void RpcCreateSkill(int animalIdx,Evolution.ConstEnums.Skills skillType) {
-        Debug.Log("rpc create skill:" + skillType);
+        //Debug.Log("rpc create skill:" + skillType);
         int neededFood = playerMod.addSkillToAniml(animalIdx,skillType);
 		playerView.addSkillToAniml(animalIdx,skillType,neededFood);
-		Debug.Log( getPlayerId() + " creat skill ");
+		//Debug.Log( getPlayerId() + " creat skill ");
 		this.PostNotification(RequestCreatAnimal);
 		//Instantiate (animalStatus, new Vector3 (pos.x, pos.y + 3.0f, pos.z), Quaternion.identity);
 	}
@@ -384,7 +386,7 @@ public class PlayerController : NetworkBehaviour {
 	{
 		playerMod.removeCard(cardIndex);
 		playerView.removeCard(cardIndex);
-		Debug.Log( getPlayerId() + " remove card ");
+		//Debug.Log( getPlayerId() + " remove card ");
 	}
 
 	[ClientRpc]

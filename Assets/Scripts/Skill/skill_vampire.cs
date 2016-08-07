@@ -10,7 +10,6 @@ public class skill_vampire : base_skill {
 	{
 		base.Enter ();
 		thisAnimal.raiseNeed ();
-		thisAnimal.raiseNeed ();
 		skillName = ConstEnums.Skills.Vampire;
 		Debug.Log("skill wisdom creat");
 	}
