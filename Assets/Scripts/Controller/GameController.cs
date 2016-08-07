@@ -22,6 +22,7 @@ public class GameController : BaseSingletonController<GameController> {
 	public GameModel gameMod;
 	public GameView gameView;
 	public Text cardNumTxt;
+	public Transform cardShowPos;
 
 	bool initEvolute;
 	bool isInitFood;

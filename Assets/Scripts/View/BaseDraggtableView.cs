@@ -96,7 +96,7 @@ public abstract class BaseDraggtableView: MonoBehaviour {
 		return false;
 	}
 
-	IEnumerator OnMouseDown()  
+	public virtual IEnumerator OnMouseDown()  
 	{  
 		isMouseDown = true;
 		if(checkActive()){
@@ -132,7 +132,7 @@ public abstract class BaseDraggtableView: MonoBehaviour {
 	} 
 
 
-	void OnMouseUp(){
+	public virtual void OnMouseUp(){
 		clearColor();
 		isMouseDown = false;
 		if(checkActive()){

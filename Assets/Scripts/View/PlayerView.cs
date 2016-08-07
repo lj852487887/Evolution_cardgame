@@ -62,6 +62,7 @@ public class PlayerView : MonoBehaviour {
 			Sequence mySequence = DOTween.Sequence();
 			for(int i =0;i<cards.Count;i++){
 				pos.x =  originX + i*margin + i*cardSize.x;
+				cards[i].GetComponent<CardView>().originPos = pos;
 				mySequence.Append(cards[i].transform.DOMove(pos,0.3f,false));
 			}
 		}
