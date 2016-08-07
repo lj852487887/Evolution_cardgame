@@ -6,7 +6,7 @@ using Evolution;
 
 public class GameController : BaseSingletonController<GameController> {
 
-	public static int MAX_CARD_NUM = 18;
+	public static int MAX_CARD_NUM = 30;
 	public static int MAX_PREDATOR_CARD_NUM = 15;
 	public static int MAX_AQUATIC_CARD_NUM = 10;
 	public static int MAX_FAT_CARD_NUM = 5;
