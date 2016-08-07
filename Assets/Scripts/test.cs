@@ -4,7 +4,7 @@ using System.Collections;
 public class test : MonoBehaviour {
 	/// <summary>
 	/// //////tst
-	/// </summary>
+	/// </summary>djasfhd
 	public enum Player{
 		None,
 		One,
